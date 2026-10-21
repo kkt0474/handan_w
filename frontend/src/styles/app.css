@@ -1,0 +1,603 @@
+/* 日式小清新风格 (Japanese Minimalism / Clean & Fresh) 样式表 */
+:root {
+  --bg-color: #f7f9f6;             /* 极简清新灰绿背景 */
+  --card-bg: #ffffff;              /* 卡片纯白 */
+  --card-border: #e2e8e0;          /* 浅灰绿色边框 */
+  --text-main: #2d3732;            /* 深墨绿灰主字色，柔和不刺眼 */
+  --text-sub: #718076;             /* 浅绿灰辅助说明字色 */
+  --primary: #4a7c59;              /* 清新抹茶绿主强调色 */
+  --primary-hover: #3b6447;        /* 悬停深抹茶绿 */
+  --primary-light: #edf5ef;        /* 极浅抹茶绿背景 */
+  --accent-gold: #c29b38;          /* 淡金木色微强调 */
+  --error-bg: #fff1f0;             /* 柔和浅红背景 */
+  --error-text: #cf1322;           /* 报错字色 */
+  --success-bg: #f6ffed;           /* 成功绿背景 */
+  --success-text: #389e0d;         /* 成功绿字色 */
+  --shadow-sm: 0 2px 8px rgba(45, 55, 50, 0.04);
+  --shadow-md: 0 6px 18px rgba(45, 55, 50, 0.07);
+  --radius-card: 10px;
+  --radius-btn: 6px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 顶部导航标题 */
+.header-bar {
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--card-border);
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-tag {
+  font-size: 12px;
+  font-weight: normal;
+  letter-spacing: 0;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.header-status {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* 主工作区左右布局 */
+.main-layout {
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 0 30px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 30px;
+  align-items: start;
+}
+
+/* 左侧：Log 日志监控大面板 */
+.log-panel-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  min-height: 620px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.log-content-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 520px;
+  background-color: #fafbf9;
+  scroll-behavior: smooth;
+}
+
+.log-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 380px;
+  color: var(--text-sub);
+  font-size: 14px;
+  gap: 12px;
+}
+
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.log-item {
+  background: var(--card-bg);
+  border: 1px solid #edf0eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: all 0.25s ease;
+}
+
+/* 逐条输出滑入淡入动效 */
+.log-item-animated {
+  animation: slideInLog 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInLog {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.log-item.RUNNING {
+  border-left: 4px solid var(--accent-gold);
+}
+
+.log-item.SUCCESS {
+  border-left: 4px solid var(--primary);
+}
+
+.log-item.FAILED {
+  border-left: 4px solid var(--error-text);
+  background-color: var(--error-bg);
+}
+
+/* 重点高亮最后一条结果日志 */
+.log-item.is-last-result {
+  box-shadow: var(--shadow-md);
+  border-width: 1.5px;
+  transform: translateY(-2px);
+}
+
+.log-item.is-last-result.SUCCESS {
+  background-color: var(--success-bg);
+  border-color: #b7eb8f;
+}
+
+.log-badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-running {
+  background: #fffbe6;
+  color: #d48806;
+}
+
+.badge-success {
+  background: #f6ffed;
+  color: #389e0d;
+}
+
+.badge-failed {
+  background: #fff1f0;
+  color: #cf1322;
+}
+
+.log-detail {
+  flex: 1;
+}
+
+.log-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-sub);
+  margin-bottom: 4px;
+}
+
+.log-stage {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.log-message {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+/* 呼吸动画指示灯 */
+.pulsing-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+/* 右侧：功能模块网格列表 */
+.modules-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.module-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  padding: 22px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.module-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #edf0eb;
+}
+
+.module-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.module-status-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.status-active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.status-pending {
+  background-color: #f5f5f5;
+  color: #999;
+}
+
+/* 单据文件类型分段切换器 */
+.file-type-toggle {
+  display: flex;
+  background-color: #f1f4ee;
+  border-radius: var(--radius-btn);
+  padding: 3px;
+  gap: 4px;
+}
+
+.file-type-btn {
+  flex: 1;
+  padding: 6px 0;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  background: transparent;
+  color: var(--text-sub);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.file-type-btn:hover:not(:disabled) {
+  color: var(--text-main);
+}
+
+.file-type-btn.active {
+  background-color: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+}
+
+.file-type-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 表单输入控件 */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-main);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.form-label .required-star {
+  color: #ff4d4f;
+  margin-left: 2px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 13.5px;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-btn);
+  background-color: #fafbf9;
+  color: var(--text-main);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-input:focus {
+  background-color: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.12);
+}
+
+.form-input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* 执行操作按钮 */
+.btn-execute {
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.btn-execute:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-execute:disabled {
+  background-color: #d3dbd1;
+  color: #8c978b;
+  cursor: not-allowed;
+}
+
+/* 占位卡片 (采购单、发票等) */
+.module-card.is-pending {
+  background: #fafbfa;
+  border-style: dashed;
+}
+
+.pending-placeholder-content {
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-sub);
+  font-size: 13px;
+  gap: 8px;
+}
+
+/* 日期选择组件 (DatePicker) 样式 */
+.date-picker-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.date-picker-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-picker-input-container.disabled {
+  cursor: not-allowed;
+}
+
+.date-picker-input-container .date-input {
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.date-picker-input-container .calendar-icon {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.date-picker-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 100;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-md);
+  padding: 14px;
+  width: 290px;
+  user-select: none;
+  animation: fadeInDown 0.18s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.date-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.current-month-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.date-picker-header .nav-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--text-sub);
+  font-size: 18px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.date-picker-header .nav-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-color: #dbe8dd;
+}
+
+.date-picker-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-sub);
+  margin-bottom: 8px;
+}
+
+.weekday-label {
+  font-weight: 500;
+}
+
+.date-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.day-cell {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-main);
+  transition: all 0.15s;
+}
+
+.day-cell.other-month {
+  color: #cfd8d2;
+  cursor: default;
+}
+
+.day-cell.current-month:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.day-cell.today {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.day-cell.selected {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.date-picker-footer {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #edf0eb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.quick-today-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.quick-today-btn:hover {
+  background-color: var(--primary-light);
+  text-decoration: underline;
+}

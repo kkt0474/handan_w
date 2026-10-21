@@ -1,0 +1,19 @@
+version: "1.0"
+excelTable:
+  sheetName: "客户订单"
+  columns:
+    - excelHeader: "料号"
+      sourceType: "TABLE"
+      tableColumnIndex: 2
+    - excelHeader: "单价(USD)"
+      sourceType: "TABLE"
+      tableColumnIndex: 4
+    - excelHeader: "数量(PCS)"
+      sourceType: "TABLE"
+      tableColumnIndex: 3
+    - excelHeader: "金额"
+      sourceType: "TABLE"
+      tableColumnIndex: 5
+    - excelHeader: "交期"
+      sourceType: "TABLE"
+      tableColumnIndex: 6
